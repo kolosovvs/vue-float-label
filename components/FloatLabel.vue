@@ -123,7 +123,7 @@ export default {
   position: absolute;
   top: 0;
   right: 0;
-  left: 0.1em;
+  left: -25px;
   overflow: hidden;
   font-family: sans-serif;
   font-size: 0.8em;
