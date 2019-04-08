@@ -73,13 +73,14 @@ export default {
       this.formEl.focus()
     },
     updateIsActive (e) {
-      this.isActive = e.target.value.length > 0
+      return e.target === document.activeElement
     },
     updateIsFocused (e) {
       if (this.formElType === 'input' || this.formElType === 'textarea') {
         this.labelText = this.formEl.placeholder
       }
-      this.isFocused = e.target === document.activeElement && this.isActive
+      this.isFocused = e.target === document.activeElement
+      this.isActive = this.isFocused
     }
   },
   computed: {
