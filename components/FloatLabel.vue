@@ -80,7 +80,7 @@ export default {
         this.labelText = this.formEl.placeholder
       }
       this.isFocused = e.target === document.activeElement
-      this.isActive = this.isFocused
+      this.isActive = this.isFocused || e.target.value
     }
   },
   computed: {
