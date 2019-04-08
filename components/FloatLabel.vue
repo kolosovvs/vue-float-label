@@ -37,7 +37,8 @@ export default {
       formEl: undefined,
       labelEl: undefined,
       isActive: false,
-      isFocused: false
+      isFocused: false,
+      labelText: ''
     }
   },
   mounted () {
@@ -75,6 +76,9 @@ export default {
       this.isActive = e.target.value.length > 0
     },
     updateIsFocused (e) {
+      if (this.formElType === 'input' || this.formElType === 'textarea') {
+        this.labelText = this.formEl.placeholder
+      }
       this.isFocused = e.target === document.activeElement && this.isActive
     }
   },
@@ -92,6 +96,7 @@ export default {
       return this.formEl ? this.formEl.tagName.toLowerCase() : ''
     },
     floatLabel () {
+      if (this.labelText) return this.labelText
       if (this.label) return this.label
 
       switch (this.formElType) {
