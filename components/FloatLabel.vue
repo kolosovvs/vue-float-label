@@ -53,6 +53,21 @@ export default {
       this.labelEl.addEventListener('click', this.focusFormEl)
     }
 
+    // eslint-disable-next-line no-undef
+    this.observer = new MutationObserver(mutations => {
+      for (const m of mutations) {
+        const newValue = m.target.getAttribute(m.attributeName)
+        this.$nextTick(() => {
+          this.labelText = newValue
+        })
+      }
+    })
+    this.observer.observe(this.formEl, {
+      attributes: true,
+      attributeOldValue: true,
+      attributeFilter: ['placeholder']
+    })
+
     this.dispatchInput()
   },
   beforeDestroy () {
@@ -60,6 +75,7 @@ export default {
     this.formEl.removeEventListener('input', this.updateIsFocused)
     this.formEl.removeEventListener('blur', this.updateIsFocused)
     this.formEl.removeEventListener('focus', this.updateIsFocused)
+    this.observer.disconnect()
   },
   methods: {
     dispatchInput () {
@@ -102,6 +118,7 @@ export default {
 
       switch (this.formElType) {
         case 'input':
+          return this.formEl.placeholder
         case 'textarea':
           return this.formEl.placeholder
         case 'select':
